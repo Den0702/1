@@ -9,7 +9,12 @@
             crossorigin="anonymous">
          </script>
     </head>
+    
     <body>
+    	<div id="tabs-1">
+			<button id="but1">Get rates</button>
+		</div>
+        
         <h1>Kurs GBP:</h1>
         <p id="GBP"></p>
         
@@ -23,29 +28,37 @@
         <p id="CHF"></p>
 
         <script>
-            $.get('http://api.nbp.pl/api/exchangerates/tables/a/?format=json')
-            .done(function(data){
-                for (var i = data[0].rates.length - 1; i >= 0; i--) {
-                    switch(data[0].rates[i].code){
-                        case 'GBP':
-                            $('#GBP').text(data[0].rates[i].mid);
-                            break; 
-                        case 'USD':
-                            $('#USD').text(data[0].rates[i].mid);
-                            break;
-                        case 'EUR':
-                            $('#EUR').text(data[0].rates[i].mid);
-                            break;
-                        case 'CHF':
-                            $('#CHF').text(data[0].rates[i].mid);
-                            break; 
-                    }
-                    /*if(data[0].rates[i].code == 'GBP'){
-                        $('#GBP').text(data[0].rates[i].code);
-                    }*/
-                    //$('#USD').text(data.rates[0].mid);
-                }
-            })
+        	$(document).ready(function() {
+		
+				$("#but1").click( function() {
+
+					$.get('http://api.nbp.pl/api/exchangerates/tables/a/?format=json')
+						.done(function(data){
+							for (var i = data[0].rates.length - 1; i >= 0; i--) {
+								switch(data[0].rates[i].code){
+									case 'GBP':
+										$('#GBP').text(data[0].rates[i].mid);
+										break; 
+									case 'USD':
+										$('#USD').text(data[0].rates[i].mid);
+										break;
+									case 'EUR':
+										$('#EUR').text(data[0].rates[i].mid);
+										break;
+									case 'CHF':
+										$('#CHF').text(data[0].rates[i].mid);
+										break; 
+								}
+						
+							/*if(data[0].rates[i].code == 'GBP'){
+								$('#GBP').text(data[0].rates[i].code);
+							}*/
+							//$('#USD').text(data.rates[0].mid);
+						}
+					});
+
+				});
+			});
         </script>
     </body>
 </html>
